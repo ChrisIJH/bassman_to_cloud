@@ -26,8 +26,11 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 
-from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
+# from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
 # from sentence_transformers import SentenceTransformer
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
+
 
 
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -68,7 +71,8 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20
 splits = text_splitter.split_documents(docs)
 
 # create the open-source embedding function
-embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+# embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 # ChromaDB 
 vectorstore = Chroma.from_documents(documents=splits, embedding=embedding_function)
 
